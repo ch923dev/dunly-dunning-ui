@@ -68,6 +68,31 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* TipTap email-body editor (StageEditorPage). */
+.tiptap-body {
+  min-height: 180px;
+  outline: none;
+  line-height: 1.65;
+}
+.tiptap-body p {
+  margin: 0 0 10px;
+}
+.tiptap-body ul,
+.tiptap-body ol {
+  margin: 0 0 10px;
+  padding-left: 22px;
+}
+.tiptap-body ul {
+  list-style: disc;
+}
+.tiptap-body ol {
+  list-style: decimal;
+}
+.tiptap-body a {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-rise {
     animation: none;

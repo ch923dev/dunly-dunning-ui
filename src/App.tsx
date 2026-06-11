@@ -1,4 +1,6 @@
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts'
+import { Link } from 'react-router'
+import { Wordmark } from './components/Wordmark'
 
 const recoveryData = [
   { week: 'Apr 14', recovered: 610 },
@@ -60,17 +62,6 @@ const features = [
     body: 'Revenue recovered, recovery rate, days-to-recovery — with voluntary churn excluded so the numbers stay credible.',
   },
 ]
-
-function Wordmark() {
-  return (
-    <span className="flex items-center gap-2.5 select-none">
-      <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-brand shadow-sm">
-        <span className="text-[15px] leading-none font-extrabold text-white">D</span>
-      </span>
-      <span className="text-[19px] font-extrabold tracking-tight text-ink">Dunly</span>
-    </span>
-  )
-}
 
 const badgeStyles = {
   active: { cls: 'bg-slate-tint text-slate', dot: '#3d6080', label: 'Active' },
@@ -185,12 +176,15 @@ export default function App() {
           <a href="#features" className="transition-colors hover:text-ink">
             Features
           </a>
-          <a
-            href="#cta"
+          <Link to="/login" className="transition-colors hover:text-ink">
+            Sign in
+          </Link>
+          <Link
+            to="/signup"
             className="inline-flex h-10 items-center rounded-lg bg-brand px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-hover"
           >
             Start recovering
-          </a>
+          </Link>
         </nav>
       </header>
 
@@ -213,12 +207,12 @@ export default function App() {
             card updates on Stripe&rsquo;s hosted pages.
           </p>
           <div className="animate-rise mt-9 flex flex-wrap items-center gap-4 [animation-delay:300ms]">
-            <a
-              href="#cta"
+            <Link
+              to="/signup"
               className="inline-flex h-12 items-center rounded-lg bg-brand px-6 text-[15px] font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-brand-hover"
             >
               Connect Stripe →
-            </a>
+            </Link>
             <a
               href="#how"
               className="inline-flex h-12 items-center rounded-lg border border-line bg-card px-6 text-[15px] font-semibold text-ink transition-colors hover:border-ink-faint"
@@ -304,12 +298,12 @@ export default function App() {
           <h2 className="mt-5 text-4xl leading-tight font-extrabold tracking-tight text-white">
             Your next failed payment doesn&rsquo;t have to stay failed.
           </h2>
-          <a
-            href="#"
+          <Link
+            to="/signup"
             className="mt-10 inline-flex h-12 items-center rounded-lg bg-white px-7 text-[15px] font-semibold text-brand-ink shadow-pop transition-all hover:-translate-y-0.5"
           >
             Connect Stripe — free to start
-          </a>
+          </Link>
           <p className="mt-5 font-mono text-xs text-brand-tintln/70">
             Pay only when Dunly recovers money for you.
           </p>
