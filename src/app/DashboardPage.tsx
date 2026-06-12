@@ -87,6 +87,43 @@ function TrendChart({ metrics }: { metrics: Metrics }) {
   )
 }
 
+/**
+ * Dark "prevented" callout (design prototype PreDunningCallout): failures
+ * stopped before they happened are invisible value worth surfacing.
+ */
+function PreDunningCallout({ metrics }: { metrics: Metrics }) {
+  return (
+    <div className="relative overflow-hidden rounded-xl border border-brand-ink bg-brand-ink p-5 text-white shadow-card">
+      <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-white/5" />
+      <div className="absolute -right-2 bottom-2 h-20 w-20 rounded-full bg-white/5" />
+      <div className="relative">
+        <div className="mb-4 grid h-9 w-9 place-items-center rounded-lg bg-white/15 text-[17px]">
+          🛡
+        </div>
+        <p className="mb-1 text-[13px] font-semibold text-white/70">Pre-dunning prevented</p>
+        <p className="font-mono text-[34px] font-extrabold leading-none tracking-tight tnum">
+          {formatMoney(metrics.prevented.amount, metrics.currency)}
+        </p>
+        <p className="mt-2.5 text-[13px] leading-snug text-white/80">
+          <b className="font-mono text-white tnum">{metrics.prevented.cards}</b>{' '}
+          {metrics.prevented.cards === 1 ? 'card' : 'cards'} updated before expiry this month —
+          failures stopped before they happened.
+        </p>
+        <p className="mt-1.5 text-[12px] text-white/60">
+          <span className="font-mono tnum">{metrics.watching}</span>{' '}
+          {metrics.watching === 1 ? 'card' : 'cards'} being watched right now.
+        </p>
+        <Link
+          to="/app/sequence"
+          className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-white/90 transition-colors hover:text-white"
+        >
+          Manage pre-dunning →
+        </Link>
+      </div>
+    </div>
+  )
+}
+
 const STAGE_LABEL: Record<number, string> = { 100: 'Reactivation' }
 
 function EmailPerformanceCard() {
@@ -276,8 +313,11 @@ export function DashboardPage() {
             <EmailPerformanceCard />
           </div>
 
-          <div className="mt-4">
-            <ActiveCasesPreview />
+          <div className="mt-4 grid grid-cols-1 items-start gap-4 lg:grid-cols-4">
+            <div className="lg:col-span-3">
+              <ActiveCasesPreview />
+            </div>
+            <PreDunningCallout metrics={metrics} />
           </div>
         </>
       )}

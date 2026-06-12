@@ -8,6 +8,8 @@ export type Workspace = {
     brandColor: string | null
     replyTo: string | null
     timezone: string
+    expiryTouch1Enabled: boolean
+    expiryTouch2Enabled: boolean
   } | null
 }
 
@@ -72,6 +74,8 @@ export type Metrics = {
   currency: string
   timezone: string
   periodStart: string
+  prevented: { cards: number; amount: number }
+  watching: number
   recovered: { thisMonth: number; allTime: number; casesThisMonth: number }
   atRisk: { amount: number; openCases: number }
   recoveryRate: { rate: number | null; recovered: number; lostInvoluntary: number }
@@ -158,7 +162,27 @@ export type CaseDetail = {
   timeline: TimelineEvent[]
 }
 
+export type ExpiryCardStatus = 'OPEN' | 'RESOLVED' | 'LAPSED' | 'CANCELED'
+
+export type ExpiringCard = {
+  id: string
+  customerName: string | null
+  customerEmail: string | null
+  cardBrand: string | null
+  cardLast4: string | null
+  expMonth: number
+  expYear: number
+  status: ExpiryCardStatus
+  protectedAmount: number
+  currency: string
+  touchesSent: number
+  nextTouchAt: string | null
+  openedAt: string
+  resolvedAt: string | null
+}
+
 export const fetchWorkspace = () => api<Workspace>('/api/workspace')
+export const fetchExpiringCards = () => api<{ cards: ExpiringCard[] }>('/api/expiring-cards')
 export const fetchStripeConnection = () => api<StripeConnection>('/api/stripe/connection')
 export const fetchCampaign = () => api<Campaign>('/api/campaign')
 export const fetchMetrics = () => api<Metrics>('/api/metrics')
